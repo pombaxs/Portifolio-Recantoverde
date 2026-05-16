@@ -133,6 +133,27 @@ lightboxGallery.innerHTML = `
 
 document.body.appendChild(lightboxGallery);
 
+const videoLightbox = document.createElement('div');
+videoLightbox.id = 'video-lightbox';
+videoLightbox.className = 'video-lightbox';
+videoLightbox.innerHTML = `
+    <div class="video-lightbox-content">
+        <button id="close-video-lightbox" class="video-lightbox-close">✕</button>
+        <video id="lightbox-video" controls playsinline>
+            <source src="assets/video-recanto.mp4" type="video/mp4">
+            Seu navegador não suporta reprodução de vídeo.
+        </video>
+    </div>
+`;
+document.body.appendChild(videoLightbox);
+
+document.getElementById('close-video-lightbox').addEventListener('click', closeVideoLightbox);
+videoLightbox.addEventListener('click', (e) => {
+    if (e.target === videoLightbox) {
+        closeVideoLightbox();
+    }
+});
+
 let currentPhotoIndex = 0;
 let galleryPhotos = [];
 
@@ -169,6 +190,41 @@ function closeLightbox() {
     document.body.style.overflow = 'auto';
 }
 
+function openVideoLightbox() {
+    const videoLightbox = document.getElementById('video-lightbox');
+    const videoElement = document.getElementById('lightbox-video');
+    videoElement.currentTime = 0;
+    videoElement.play();
+    videoLightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeVideoLightbox() {
+    const videoLightbox = document.getElementById('video-lightbox');
+    const videoElement = document.getElementById('lightbox-video');
+    videoLightbox.classList.remove('active');
+    videoElement.pause();
+    document.body.style.overflow = 'auto';
+}
+
+function showEventGallery(eventName) {
+    const tabs = document.querySelectorAll('.event-tab');
+    const galleries = document.querySelectorAll('.event-gallery');
+
+    tabs.forEach(tab => {
+        tab.classList.toggle('active', tab.getAttribute('data-event') === eventName);
+    });
+
+    galleries.forEach(gallery => {
+        gallery.classList.toggle('active', gallery.id === eventName);
+    });
+
+    const section = document.getElementById('eventos');
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
 function nextPhoto() {
     currentPhotoIndex = (currentPhotoIndex + 1) % galleryPhotos.length;
     updateLightboxImage();
@@ -192,10 +248,14 @@ document.getElementById('lightbox-gallery').addEventListener('click', (e) => {
 // Navegação por teclado
 document.addEventListener('keydown', (e) => {
     const lightbox = document.getElementById('lightbox-gallery');
+    const videoLightboxEl = document.getElementById('video-lightbox');
     if (lightbox.style.display === 'flex') {
         if (e.key === 'ArrowRight') nextPhoto();
         if (e.key === 'ArrowLeft') prevPhoto();
         if (e.key === 'Escape') closeLightbox();
+    }
+    if (videoLightboxEl.classList.contains('active')) {
+        if (e.key === 'Escape') closeVideoLightbox();
     }
 });
 

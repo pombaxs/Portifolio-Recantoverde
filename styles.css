@@ -6,12 +6,12 @@
 }
 
 :root {
-    --primary-color: #1f2b1c;
-    --secondary-color: #6c7f5c;
-    --light-bg: #f8f9fa;
-    --dark-text: #2d3748;
-    --border-color: #92ba4e;
-    --white: #ffffff;
+    --primary-color: #1c5a2f;
+    --secondary-color: #7db16b;
+    --light-bg: #e6f3e5;
+    --dark-text: #16381d;
+    --border-color: #96c17c;
+    --white: #f4faf0;
     --transition: all 0.3s ease;
 }
 
@@ -20,8 +20,84 @@ body {
     line-height: 1.6;
     color: var(--dark-text);
     overflow-x: hidden;
-    background: linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)), url("assets/background.jpg") center / cover no-repeat fixed;
+    background: linear-gradient(rgba(24, 57, 20, 0.92), rgba(55, 104, 44, 0.55)), url("assets/background.jpg") center / cover no-repeat fixed;
     background-attachment: fixed;
+}
+
+.header {
+    background: rgba(244, 250, 240, 0.98);
+    box-shadow: 0 2px 14px rgba(20, 55, 24, 0.12);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 5px 0;
+    transition: var(--transition);
+    border-radius: 2px;
+}
+
+.hero {
+    background: linear-gradient(135deg, rgba(18, 60, 25, 0.75), rgba(90, 142, 84, 0.45)), url("assets/entrada-recanto.jpg") center / cover no-repeat;
+    background-attachment: scroll;
+    color: var(--white);
+    padding: 140px 0;
+    text-align: center;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-text small {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    transition: var(--transition);
+}
+
+.hero-content .btn-primary,
+.btn-primary {
+    background: linear-gradient(135deg, #2c7a3e 0%, #7eb86c 100%);
+    color: var(--white);
+}
+
+.hero-content .btn-primary:hover,
+.btn-primary:hover {
+    background: linear-gradient(135deg, #237138 0%, #76ad66 100%);
+}
+
+.footer {
+    background: #142f1e;
+    color: #f4faf0;
+}
+
+.footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-link {
+    color: #d8f0d3;
+}
+
+.social-link:hover {
+    color: #ffffff;
 }
 
 .container {
@@ -32,8 +108,8 @@ body {
 
 /* ==================== Header/Navbar ==================== */
 .header {
-    background: var(--white);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(236, 248, 227, 0.95);
+    box-shadow: 0 2px 10px rgba(20, 60, 25, 0.12);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -154,6 +230,21 @@ body {
     justify-content: center;
 }
 
+.hero, .sobre, .servicos, .projetos, .galeria, .contato, .footer {
+    text-align: center;
+}
+
+.sobre-text,
+.servico-card,
+.projeto-card,
+.galeria-item,
+.info-box,
+.video-destaque,
+.contato-buttons,
+.contato-form {
+    text-align: center;
+}
+
 .hero-content {
     max-width: 760px;
     margin: 0 auto;
@@ -251,7 +342,7 @@ html {
 /* ==================== Seção Sobre ==================== */
 .sobre {
     padding: 100px 0;
-    background: var(--light-bg);
+    background: rgba(236, 249, 232, 0.82);
 }
 
 .sobre h2,
@@ -290,11 +381,11 @@ html {
 }
 
 .stat-box {
-    background: var(--white);
+    background: #f2f9ed;
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 10px rgba(16, 65, 26, 0.08);
     transition: var(--transition);
 }
 
@@ -320,7 +411,7 @@ html {
 /* ==================== Seção Serviços ==================== */
 .servicos {
     padding: 100px 0;
-    background: var(--white);
+    background: rgba(231, 243, 227, 0.82);
 }
 
 .servicos-grid {
@@ -330,12 +421,12 @@ html {
 }
 
 .servico-card {
-    background: var(--light-bg);
+    background: #f3faf0;
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
     transition: var(--transition);
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(117, 159, 93, 0.4);
 }
 
 .servico-card:hover {
@@ -364,7 +455,7 @@ html {
 /* ==================== Seção Galeria e Vídeo ==================== */
 .galeria {
     padding: 100px 0;
-    background: var(--white);
+    background: rgba(234, 245, 228, 0.82);
 }
 
 .galeria h2 {
@@ -434,16 +525,76 @@ html {
     opacity: 1;
 }
 
-.play-icon {
-    font-size: 4rem;
+.video-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    background: var(--border-color);
+    border: none;
     color: var(--white);
-    opacity: 0.8;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     transition: var(--transition);
 }
 
-.video-destaque:hover .play-icon {
-    transform: scale(1.2);
+.video-btn:hover {
+    background: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.video-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-lightbox.active {
+    display: flex;
     opacity: 1;
+}
+
+.video-lightbox-content {
+    width: 100%;
+    max-width: 1200px;
+    max-height: 90vh;
+    position: relative;
+}
+
+.video-lightbox video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #000;
+}
+
+.video-lightbox-close {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.35);
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.video-lightbox-close:hover {
+    background: rgba(255,255,255,0.2);
 }
 
 /* Galeria de Fotos */
@@ -457,9 +608,9 @@ html {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(21, 74, 28, 0.18);
     aspect-ratio: 1 / 1;
-    background: var(--light-bg);
+    background: #edf7ea;
     cursor: pointer;
     transition: var(--transition);
 }
@@ -518,10 +669,81 @@ html {
     transform: scale(1.15);
 }
 
+.eventos {
+    padding: 100px 0;
+    background: rgba(232, 245, 227, 0.82);
+}
+
+.eventos h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--dark-text);
+}
+
+.eventos-subtitle {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+}
+
+.eventos-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.event-tab {
+    padding: 0.9rem 1.6rem;
+    border-radius: 50px;
+    border: 2px solid var(--border-color);
+    background: #f4faf0;
+    color: var(--dark-text);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.event-tab.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border-color: transparent;
+}
+
+.event-tab:hover {
+    transform: translateY(-2px);
+}
+
+.eventos-content {
+    display: grid;
+    gap: 2rem;
+}
+
+.event-gallery {
+    display: none;
+}
+
+.event-gallery.active {
+    display: block;
+}
+
+.event-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.event-gallery .galeria-item {
+    min-height: 240px;
+}
+
 /* ==================== Seção Projetos ==================== */
 .projetos {
     padding: 100px 0;
-    background: var(--light-bg);
+    background: rgba(226, 238, 216, 0.82);
 }
 
 .projetos-grid {
@@ -531,11 +753,11 @@ html {
 }
 
 .projeto-card {
-    background: var(--white);
+    background: #f4fbef;
     border-radius: 10px;
     overflow: hidden;
     transition: var(--transition);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 15px rgba(26, 92, 36, 0.12);
 }
 
 .projeto-card:hover {
@@ -581,7 +803,7 @@ html {
 /* ==================== Seção Contato ==================== */
 .contato {
     padding: 100px 0;
-    background: var(--white);
+    background: rgba(232, 242, 222, 0.82);
 }
 
 .contato-content {
@@ -598,10 +820,10 @@ html {
 }
 
 .info-box {
-    background: var(--light-bg);
+    background: #d8e8cf;
     padding: 2rem;
     border-radius: 10px;
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid var(--secondary-color);
 }
 
 .info-box h3 {
@@ -610,7 +832,7 @@ html {
 }
 
 .info-box p {
-    color: #718096;
+    color: #375f3d;
 }
 
 .info-box a {
@@ -655,7 +877,7 @@ html {
 .contato-subtitle {
     text-align: center;
     font-size: 1.1rem;
-    color: #718096;
+    color: var(--primary-color);
     margin-bottom: 2rem;
 }
 
@@ -696,12 +918,12 @@ html {
 }
 
 .btn-instagram {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #4aa86f 0%, #1f6f3b 100%);
 }
 
 .btn-instagram:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(245, 87, 108, 0.3);
+    box-shadow: 0 8px 25px rgba(31, 111, 59, 0.28);
 }
 
 .btn-icon {
@@ -776,12 +998,12 @@ html {
         top: 70px;
         left: 0;
         right: 0;
-        background: var(--white);
+        background: rgba(238, 247, 232, 0.98);
         flex-direction: column;
         width: 100%;
         text-align: center;
         gap: 0;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 5px 10px rgba(20, 60, 25, 0.12);
     }
 
     .nav-menu.active {
@@ -808,12 +1030,24 @@ html {
 
     .sobre-content,
     .contato-content,
-    .galeria-content {
+    .galeria-content,
+    .eventos-content {
         grid-template-columns: 1fr;
     }
 
-    .galeria-grid {
+    .galeria-grid,
+    .event-gallery-grid {
         grid-template-columns: 1fr;
+    }
+
+    .eventos-tabs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .event-tab {
+        width: 100%;
+        max-width: 100%;
     }
 
     .sobre-stats,

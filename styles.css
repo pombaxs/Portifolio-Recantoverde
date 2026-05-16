@@ -20,6 +20,8 @@ body {
     line-height: 1.6;
     color: var(--dark-text);
     overflow-x: hidden;
+    background: linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)), url("assets/background.jpg") center / cover no-repeat fixed;
+    background-attachment: fixed;
 }
 
 .container {
@@ -67,12 +69,25 @@ body {
 }
 
 .logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.1;
+}
+
+.logo-text span {
     font-size: 1.6rem;
     font-weight: 700;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+.logo-text small {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dark-text);
 }
 
 .nav-menu {
@@ -104,6 +119,11 @@ body {
     width: 100%;
 }
 
+.nav-link.active {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -123,21 +143,29 @@ body {
 
 /* ==================== Hero Section ==================== */
 .hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, rgba(31, 43, 28, 0.65), rgba(108, 127, 92, 0.65)), url("assets/entrada-recanto.jpg") center / cover no-repeat;
+    background-attachment: scroll;
     color: var(--white);
-    padding: 150px 0;
+    padding: 140px 0;
     text-align: center;
-    min-height: 600px;
+    min-height: 560px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.hero-content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
 .hero-content h1 {
-    font-size: 3.5rem;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
     margin-bottom: 1rem;
     animation: slideUp 0.8s ease;
 }
+
 
 .hero-content p {
     font-size: 1.3rem;
@@ -157,7 +185,46 @@ body {
     }
 }
 
-/* ==================== Botões ==================== */
+html {
+    scroll-behavior: smooth;
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: opacity, transform;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in {
+    animation: fadeIn 0.9s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+}
+
 .btn {
     padding: 12px 30px;
     border: none;
@@ -292,6 +359,163 @@ body {
 .servico-card p {
     color: #718096;
     line-height: 1.6;
+}
+
+/* ==================== Seção Galeria e Vídeo ==================== */
+.galeria {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.galeria h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--dark-text);
+}
+
+.galeria-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin-bottom: 3rem;
+}
+
+.galeria-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.galeria-content > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.galeria-content > *.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Vídeo em Destaque */
+.video-destaque {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.video-destaque video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.video-destaque:hover .video-overlay {
+    opacity: 1;
+}
+
+.play-icon {
+    font-size: 4rem;
+    color: var(--white);
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.video-destaque:hover .play-icon {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+/* Galeria de Fotos */
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.galeria-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    aspect-ratio: 1 / 1;
+    background: var(--light-bg);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.galeria-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.galeria-item:hover img {
+    filter: brightness(0.7);
+}
+
+.galeria-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.galeria-item:hover .galeria-overlay {
+    opacity: 1;
+}
+
+.galeria-btn {
+    background: var(--border-color);
+    color: var(--white);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.galeria-btn:hover {
+    background: var(--primary-color);
+    transform: scale(1.15);
 }
 
 /* ==================== Seção Projetos ==================== */
@@ -436,8 +660,8 @@ body {
 }
 
 .contato-buttons {
-    display: flex;
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
     margin-bottom: 3rem;
     justify-content: center;
@@ -481,7 +705,18 @@ body {
 }
 
 .btn-icon {
-    font-size: 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: var(--white);
+}
+
+.btn-icon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
 }
 
 .btn-text {
@@ -568,23 +803,28 @@ body {
 
     .hero {
         padding: 100px 0;
-        min-height: 400px;
+        min-height: 450px;
     }
 
-    .sobre-content {
+    .sobre-content,
+    .contato-content,
+    .galeria-content {
         grid-template-columns: 1fr;
     }
 
-    .sobre-stats {
+    .galeria-grid {
         grid-template-columns: 1fr;
     }
 
-    .contato-content {
+    .sobre-stats,
+    .contato-buttons,
+    .projetos-grid,
+    .servicos-grid {
         grid-template-columns: 1fr;
     }
 
-    .contato-buttons {
-        grid-template-columns: 1fr;
+    .projeto-image {
+        height: 240px;
     }
 
     .btn-whatsapp,
@@ -611,6 +851,57 @@ body {
     .logo-img {
         width: 44px;
         height: auto;
+    }
+
+    .galeria-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content p {
+        font-size: 0.95rem;
+    }
+
+    .servicos-grid,
+    .projetos-grid,
+    .galeria-content,
+    .contato-content {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-box h3 {
+        font-size: 2rem;
+    }
+
+    .galeria-content {
+        gap: 2rem;
+    }
+
+    .video-destaque {
+        aspect-ratio: auto;
+        min-height: 250px;
+    }
+
+    .footer .container {
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .logo-img {
+        width: 44px;
+        height: auto;
+    }
+
+    .galeria-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .hero-content h1 {

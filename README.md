@@ -58,6 +58,8 @@ Execute um dos scripts localmente após autenticar o `gh` CLI com `gh auth login
 
 Observação: por segurança eu não tenho acesso à sua conta GitHub — você precisa executar o script no seu computador para autorizar.
 
+Se o site ainda não aparecer, abra as configurações do repositório no GitHub e verifique em **Settings > Pages** se o branch `gh-pages` está ativo como fonte de publicação.
+
 ---
 Se quiser que eu crie o `logo.png` a partir da imagem que você enviou, confirme e eu salvo o arquivo em `assets/logo.png`.
 # � Recanto Verde - Espaço para Eventos

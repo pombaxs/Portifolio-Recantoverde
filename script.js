@@ -36,24 +36,30 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 /* ==================== Scroll Animation ==================== */
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    threshold: 0.12,
+    rootMargin: '0px 0px -80px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('visible');
+            if (entry.target.closest('.sobre') && !entry.target.dataset.statsAnimated) {
+                animateCounters();
+                entry.target.dataset.statsAnimated = 'true';
+            }
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
 // Observar elementos de animação
-document.querySelectorAll('.servico-card, .projeto-card, .stat-box').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+const animatedElements = document.querySelectorAll(
+    '.servico-card, .projeto-card, .stat-box, .galeria-grid, .galeria-item, .video-destaque, .btn-link, .info-box, .contato-form, .contato-buttons, .sobre-text, .hero-content'
+);
+
+animatedElements.forEach(el => {
+    el.classList.add('animate-on-scroll');
     observer.observe(el);
 });
 
@@ -97,6 +103,102 @@ function animateCounters() {
         }, 50);
     });
 }
+
+/* ==================== Lightbox para Galeria de Fotos ==================== */
+const lightboxGallery = document.createElement('div');
+lightboxGallery.id = 'lightbox-gallery';
+lightboxGallery.style.cssText = `
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+`;
+
+lightboxGallery.innerHTML = `
+    <button id="close-lightbox" style="position: absolute; top: 20px; right: 30px; background: none; border: none; color: white; font-size: 40px; cursor: pointer; padding: 0;">✕</button>
+    <button id="prev-photo" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: white; font-size: 30px; cursor: pointer; padding: 10px 15px; border-radius: 4px;">❮</button>
+    <div id="lightbox-image-container" style="position: relative; width: 90%; max-width: 900px; max-height: 80vh;">
+        <img id="lightbox-image" src="" alt="Galeria" style="width: 100%; height: auto; border-radius: 8px; object-fit: contain;">
+    </div>
+    <button id="next-photo" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: white; font-size: 30px; cursor: pointer; padding: 10px 15px; border-radius: 4px;">❯</button>
+`;
+
+document.body.appendChild(lightboxGallery);
+
+let currentPhotoIndex = 0;
+let galleryPhotos = [];
+
+function openGalleryLightbox(btn) {
+    const galleryItems = document.querySelectorAll('.galeria-item img');
+    galleryPhotos = Array.from(galleryItems).map(img => img.src);
+    
+    const clickedImage = btn.closest('.galeria-item').querySelector('img').src;
+    currentPhotoIndex = galleryPhotos.indexOf(clickedImage);
+    
+    const lightbox = document.getElementById('lightbox-gallery');
+    lightbox.style.display = 'flex';
+    
+    setTimeout(() => {
+        lightbox.style.opacity = '1';
+    }, 10);
+    
+    updateLightboxImage();
+    document.body.style.overflow = 'hidden';
+}
+
+function updateLightboxImage() {
+    document.getElementById('lightbox-image').src = galleryPhotos[currentPhotoIndex];
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox-gallery');
+    lightbox.style.opacity = '0';
+    
+    setTimeout(() => {
+        lightbox.style.display = 'none';
+    }, 300);
+    
+    document.body.style.overflow = 'auto';
+}
+
+function nextPhoto() {
+    currentPhotoIndex = (currentPhotoIndex + 1) % galleryPhotos.length;
+    updateLightboxImage();
+}
+
+function prevPhoto() {
+    currentPhotoIndex = (currentPhotoIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
+    updateLightboxImage();
+}
+
+// Event listeners do lightbox
+document.getElementById('close-lightbox').addEventListener('click', closeLightbox);
+document.getElementById('next-photo').addEventListener('click', nextPhoto);
+document.getElementById('prev-photo').addEventListener('click', prevPhoto);
+document.getElementById('lightbox-gallery').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox-gallery') {
+        closeLightbox();
+    }
+});
+
+// Navegação por teclado
+document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox-gallery');
+    if (lightbox.style.display === 'flex') {
+        if (e.key === 'ArrowRight') nextPhoto();
+        if (e.key === 'ArrowLeft') prevPhoto();
+        if (e.key === 'Escape') closeLightbox();
+    }
+});
+
 
 // Verificar quando a seção "sobre" fica visível
 const aboutSection = document.querySelector('.sobre');
